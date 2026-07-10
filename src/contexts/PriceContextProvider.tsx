@@ -10,7 +10,7 @@ const TotalCostContext = ({ children }: ITotalCostContextProps) => {
   const [deleteObj, setDeletedObj] = useState<IProfileDataObject>({name: '', amount: '', price: ''});
 
   useEffect(() => {
-    const userTotalCostStore = JSON.parse(localStorage.getItem("userTotalCostStore") || "");
+    const userTotalCostStore = JSON.parse(localStorage.getItem("userTotalCostStore") || "null");
     if (userTotalCostStore) {
       setUserTotalCost(userTotalCostStore);
     }

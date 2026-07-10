@@ -6,8 +6,8 @@ const DataContext = createContext<IUserContextInterface>({} as IUserContextInter
 const DataContextProvider = ({ children }: IUserContextProps) => { const [userCryptocurrency, setUserCryptocurrency] = useState<IProfileDataObject[]>([{ name: "", amount: "", price: ""}]);
 
   useEffect(() => {
-    const userCryptocurrencyStore = JSON.parse(localStorage.getItem("userCryptocurrencyStore") || "");
-    if (userCryptocurrencyStore.length !== 1) {
+    const userCryptocurrencyStore = JSON.parse(localStorage.getItem("userCryptocurrencyStore") || "null");
+    if (userCryptocurrencyStore && userCryptocurrencyStore.length !== 1) {
       setUserCryptocurrency(userCryptocurrencyStore);
     }
   }, []);
