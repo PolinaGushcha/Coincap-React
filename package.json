@@ -1,7 +1,7 @@
 {
   "name": "react-assessment-coincap",
   "version": "0.1.0",
-  "homepage": "https://polinasss.github.io/React-Skills-Assessment-Coincap",
+  "homepage": "https://polinagushcha.github.io/Coincap-React",
   "private": true,
   "dependencies": {
     "chart.js": "^4.3.3",
