@@ -1,15 +1,15 @@
-import styles from "./Header.module.scss";
-import { Outlet, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { fetchCoincapApi } from "../../services/api";
-import { IMain, IProfileDataObject } from "../../types";
-import { Portfolio } from "../../pages/Portfolio";
-import { useDataContext } from "../../contexts/DataContextProvider";
-import { useTotalCostContext } from "../../contexts/PriceContextProvider";
+import styles from './Header.module.scss';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { startTransition, useEffect, useState } from 'react';
+import { fetchCoincapApi } from '../../services/api';
+import { IMain } from '../../types';
+import { Portfolio } from '../../pages/Portfolio';
+import { useDataContext } from '../../contexts/DataContextProvider';
+import { useTotalCostContext } from '../../contexts/PriceContextProvider';
 
 export const Layout: React.FC = () => {
   const navigate = useNavigate();
-  const {userCryptocurrency} = useDataContext();
+  const { userCryptocurrency } = useDataContext();
   const { getPortfolioPrice } = useTotalCostContext();
   const [getPrice, setGetPrice] = useState<string>('');
 
@@ -17,14 +17,16 @@ export const Layout: React.FC = () => {
   const [modalWindow, setModalWindow] = useState<boolean>(false);
 
   useEffect(() => {
-    fetchCoincapApi("").then(setData); 
+    fetchCoincapApi('').then(setData);
   }, []);
   useEffect(() => {
-    navigate("/?page=1");
+    startTransition(() => {
+      navigate('/?page=1');
+    });
   }, []);
   useEffect(() => {
-    setGetPrice(getPortfolioPrice(userCryptocurrency))
-  }, [userCryptocurrency])
+    setGetPrice(getPortfolioPrice(userCryptocurrency));
+  }, [userCryptocurrency]);
 
   data?.data.sort((a, b) => Number(b.priceUsd) - Number(a.priceUsd));
   const setModal = (val: boolean) => setModalWindow(val);
@@ -45,8 +47,15 @@ export const Layout: React.FC = () => {
           </li>
         </ul>
         <div className={styles.portfolio_container}>
-          <button onClick={() => setModalWindow(true)} className={styles.portfolio}>Portfolio</button>
-          <p id="portfolioInfo" className={styles.portfolio_info}>{userCryptocurrency.length >= 1 ? getPrice : 0}</p>
+          <button
+            onClick={() => setModalWindow(true)}
+            className={styles.portfolio}
+          >
+            Portfolio
+          </button>
+          <p id="portfolioInfo" className={styles.portfolio_info}>
+            {userCryptocurrency.length >= 1 ? getPrice : 0}
+          </p>
         </div>
       </header>
       <Outlet />
