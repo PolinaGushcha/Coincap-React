@@ -1,14 +1,16 @@
 import styles from './Header.module.scss';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { startTransition, useEffect, useState } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Suspense, startTransition, useEffect, useState } from 'react';
 import { fetchCoincapApi } from '../../services/api';
 import { IMain } from '../../types';
 import { Portfolio } from '../../pages/Portfolio';
 import { useDataContext } from '../../contexts/DataContextProvider';
 import { useTotalCostContext } from '../../contexts/PriceContextProvider';
+import { Loading } from '../loading';
 
 export const Layout: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { userCryptocurrency } = useDataContext();
   const { getPortfolioPrice } = useTotalCostContext();
   const [getPrice, setGetPrice] = useState<string>('');
@@ -20,9 +22,11 @@ export const Layout: React.FC = () => {
     fetchCoincapApi('').then(setData);
   }, []);
   useEffect(() => {
-    startTransition(() => {
-      navigate('/?page=1');
-    });
+    if (location.pathname === '/' && !location.search) {
+      startTransition(() => {
+        navigate('/?page=1');
+      });
+    }
   }, []);
   useEffect(() => {
     setGetPrice(getPortfolioPrice(userCryptocurrency));
@@ -58,7 +62,9 @@ export const Layout: React.FC = () => {
           </p>
         </div>
       </header>
-      <Outlet />
+      <Suspense fallback={<Loading />}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

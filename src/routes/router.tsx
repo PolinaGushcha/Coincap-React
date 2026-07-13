@@ -2,7 +2,7 @@ import React, { lazy } from 'react';
 import {
   RouterProvider,
   Route,
-  createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
 import { mainLoader } from '../pages';
@@ -14,7 +14,7 @@ import TotalCostContext from '../contexts/PriceContextProvider';
 const LazyMain: React.FC = lazy(() => import(`../pages/Main/index`));
 const LazyElementInfo: React.FC = lazy(() => import(`../pages/ElementInfo`));
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route
@@ -26,7 +26,6 @@ const router = createBrowserRouter(
       <Route path="/:id" element={<LazyElementInfo />} />
     </Route>,
   ),
-  { basename: process.env.PUBLIC_URL },
 );
 
 const Navigation: React.FC = () => {
