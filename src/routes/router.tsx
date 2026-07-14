@@ -2,7 +2,7 @@ import React, { lazy } from 'react';
 import {
   RouterProvider,
   Route,
-  createHashRouter,
+  createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
 import { mainLoader } from '../pages';
@@ -14,7 +14,7 @@ import TotalCostContext from '../contexts/PriceContextProvider';
 const LazyMain: React.FC = lazy(() => import(`../pages/Main/index`));
 const LazyElementInfo: React.FC = lazy(() => import(`../pages/ElementInfo`));
 
-const router = createHashRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route
@@ -26,6 +26,7 @@ const router = createHashRouter(
       <Route path="/:id" element={<LazyElementInfo />} />
     </Route>,
   ),
+  { basename: '/Coincap-React' },
 );
 
 const Navigation: React.FC = () => {
