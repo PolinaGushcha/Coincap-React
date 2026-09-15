@@ -4,8 +4,6 @@ import styles from "./ElementInfo.module.scss";
 import { Charts, Loading } from "../../components";
 import { fetchCoincapApi } from "../../services/api";
 import { Modal } from "../Modal";
-import { IData } from "../../types";
-import { startData } from "../../constants";
 
 const ElementInfo: React.FC = () => {
   const location = useLocation();
@@ -14,7 +12,6 @@ const ElementInfo: React.FC = () => {
 
   const [data, setData] = useState<any>();
   const [modalWindow, setModalWindow] = useState<boolean>(false);
-  const [modalData, setModalData] = useState<IData>(startData[0]);
 
   useEffect(() => {
     if (id) {
@@ -47,7 +44,7 @@ const ElementInfo: React.FC = () => {
             <h3>{data.data.name}</h3>
             <span className={styles.symbol}>{data.data.symbol}</span>
           </div>
-          <button className={styles.addToProfile} onClick={() => { setModalWindow(true); setModalData(data); }}>
+          <button className={styles.addToProfile} onClick={() => setModalWindow(true)}>
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>

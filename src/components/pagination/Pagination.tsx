@@ -20,7 +20,7 @@ export const Pagination: React.FC<IPagination> = ({paginate,pageNumbers}) => {
   const location = useLocation();
   const navigation = useNavigate();
 
-  const [pageNumberLimit, setPageNumberLimit] = useState(window.screen.width < 550 ? 3 : 5);
+  const [pageNumberLimit] = useState(window.screen.width < 550 ? 3 : 5);
   const [maxPageLimit, setMaxPageLimit] = useState(window.screen.width < 550 ? 3 : 5);
   const [minPageLimit, setMinPageLimit] = useState(0);
 

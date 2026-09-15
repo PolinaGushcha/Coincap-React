@@ -12,7 +12,7 @@ export const ListRender: React.FC<IListRender> = ({ pageNum }) => {
   const location = useLocation();
 
   const [startPage, setStartPage] = useState((pageNum = Number(location.search.slice(6))));
-  const [countOfPages, setCountOfPages] = useState(10);
+  const [countOfPages] = useState(10);
   const [modalWindow, setModalWindow] = useState<boolean>(false);
   const [modalData, setModalData] = useState<IData>(startData[0]);
 

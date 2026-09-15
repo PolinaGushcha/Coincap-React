@@ -27,9 +27,11 @@ export const Layout: React.FC = () => {
         navigate('/?page=1');
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     setGetPrice(getPortfolioPrice(userCryptocurrency));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userCryptocurrency]);
 
   data?.data.sort((a, b) => Number(b.priceUsd) - Number(a.priceUsd));
@@ -42,9 +44,21 @@ export const Layout: React.FC = () => {
       <header className={styles.header}>
         <Link to="/" className={styles.brand}>
           <span className={styles.brandMark}>
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L21 7.5V16.5L12 22L3 16.5V7.5L12 2Z" stroke="white" strokeWidth="1.6" strokeLinejoin="round" />
-              <path d="M12 8L16 10.3V14.9L12 17.2L8 14.9V10.3L12 8Z" fill="white" />
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2L21 7.5V16.5L12 22L3 16.5V7.5L12 2Z"
+                stroke="white"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M12 8L16 10.3V14.9L12 17.2L8 14.9V10.3L12 8Z"
+                fill="white"
+              />
             </svg>
           </span>
           <span className={styles.brandName}>CoinCap</span>
@@ -59,9 +73,16 @@ export const Layout: React.FC = () => {
               return (
                 <li className={styles.item} key={coin.id}>
                   <span className={styles.itemName}>{coin.name}</span>
-                  <span className={styles.itemPrice}>${Number(coin.priceUsd).toFixed(2)}</span>
-                  <span className={isUp ? styles.itemChangeUp : styles.itemChangeDown}>
-                    {isUp ? '▲' : '▼'} {Math.abs(Number(coin.changePercent24Hr)).toFixed(1)}%
+                  <span className={styles.itemPrice}>
+                    ${Number(coin.priceUsd).toFixed(2)}
+                  </span>
+                  <span
+                    className={
+                      isUp ? styles.itemChangeUp : styles.itemChangeDown
+                    }
+                  >
+                    {isUp ? '▲' : '▼'}{' '}
+                    {Math.abs(Number(coin.changePercent24Hr)).toFixed(1)}%
                   </span>
                 </li>
               );
@@ -74,9 +95,22 @@ export const Layout: React.FC = () => {
             onClick={() => setModalWindow(true)}
             className={styles.portfolio}
           >
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-              <path d="M3 7.5C3 6.11929 4.11929 5 5.5 5H17C18.6569 5 20 6.34315 20 8V8.5H18.5C16.567 8.5 15 10.067 15 12C15 13.933 16.567 15.5 18.5 15.5H20V16C20 17.6569 18.6569 19 17 19H6C4.34315 19 3 17.6569 3 16V7.5Z" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M18.5 10H20.5C20.7761 10 21 10.2239 21 10.5V13.5C21 13.7761 20.7761 14 20.5 14H18.5C17.6716 14 17 13.3284 17 12.5V11.5C17 10.6716 17.6716 10 18.5 10Z" fill="currentColor" />
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+            >
+              <path
+                d="M3 7.5C3 6.11929 4.11929 5 5.5 5H17C18.6569 5 20 6.34315 20 8V8.5H18.5C16.567 8.5 15 10.067 15 12C15 13.933 16.567 15.5 18.5 15.5H20V16C20 17.6569 18.6569 19 17 19H6C4.34315 19 3 17.6569 3 16V7.5Z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              />
+              <path
+                d="M18.5 10H20.5C20.7761 10 21 10.2239 21 10.5V13.5C21 13.7761 20.7761 14 20.5 14H18.5C17.6716 14 17 13.3284 17 12.5V11.5C17 10.6716 17.6716 10 18.5 10Z"
+                fill="currentColor"
+              />
             </svg>
             Portfolio
           </button>
