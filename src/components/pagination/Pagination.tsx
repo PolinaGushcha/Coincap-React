@@ -2,9 +2,19 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IPagination } from "../../types";
 import styles from "./Pagination.module.scss";
-import rightArrow from "../../assets/rightArrow.png";
-import leftArrow from "../../assets/leftArrow.png";
 import { RenderingPagination } from ".";
+
+const Chevron: React.FC<{ direction: "left" | "right" }> = ({ direction }) => (
+  <svg
+    className={styles.img}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={direction === "right" ? { transform: "rotate(180deg)" } : undefined}
+  >
+    <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 
 export const Pagination: React.FC<IPagination> = ({paginate,pageNumbers}) => {
   const location = useLocation();
@@ -16,11 +26,11 @@ export const Pagination: React.FC<IPagination> = ({paginate,pageNumbers}) => {
 
   let pageIncrementBtn = null;
   if (pageNumbers.length > maxPageLimit) {
-    pageIncrementBtn = (<p className={styles.pageIncrementBtn} onClick={() => goNext(currentLocation)}>...</p>);
+    pageIncrementBtn = (<button type="button" className={styles.pageIncrementBtn} onClick={() => goNext(currentLocation)}>···</button>);
   }
   let pageDecrementBtn = null;
   if (minPageLimit >= 1) {
-    pageDecrementBtn = (<p className={styles.pageDecrementBtn} onClick={() => goPrevious(currentLocation)}>...</p>);
+    pageDecrementBtn = (<button type="button" className={styles.pageDecrementBtn} onClick={() => goPrevious(currentLocation)}>···</button>);
   }
 
   const currentLocation = Number(location.search.slice(6));
@@ -49,8 +59,12 @@ export const Pagination: React.FC<IPagination> = ({paginate,pageNumbers}) => {
 
   return (
     <div className={styles.pagination}>
-      <button onClick={() => goPrevious(currentLocation)} className={styles.button}>
-        <img className={styles.img} src={leftArrow} alt="left arrow" />
+      <button
+        onClick={() => goPrevious(currentLocation)}
+        className={`${styles.button} ${currentLocation === 1 ? styles.buttonDisabled : ""}`}
+        aria-label="Previous page"
+      >
+        <Chevron direction="left" />
       </button>
       {window.screen.width < 1050 ? pageDecrementBtn : null}
       <ul className={styles.list}>
@@ -81,8 +95,12 @@ export const Pagination: React.FC<IPagination> = ({paginate,pageNumbers}) => {
         })}
       </ul>
       {window.screen.width < 1050 ? pageIncrementBtn : null}
-      <button onClick={() => goNext(currentLocation)} className={styles.button}>
-        <img className={styles.img} src={rightArrow} alt="right arrow" />
+      <button
+        onClick={() => goNext(currentLocation)}
+        className={`${styles.button} ${currentLocation === 10 ? styles.buttonDisabled : ""}`}
+        aria-label="Next page"
+      >
+        <Chevron direction="right" />
       </button>
     </div>
   );

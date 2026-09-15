@@ -1,75 +1,94 @@
+@import "../../styles/mixins";
+
 .pagination {
-  width: 80%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 22px auto 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 6px;
 }
 .list {
   list-style: none;
-  width: 60%;
   display: flex;
   flex-wrap: wrap;
+  gap: 6px;
   padding: 0;
-  justify-content: space-between;
+  margin: 0;
+  justify-content: center;
 }
 .item {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid #4e598c;
-  border-radius: 30px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
   cursor: pointer;
   text-decoration: none;
-  color: black;
-}
-.active {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid #4e598c;
-  border-radius: 20px;
-  cursor: pointer;
-  background-color: #4e598c;
-  text-decoration: none;
-  color: black;
-}
-.button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  height: fit-content;
-  padding-top: 5px;
-}
-.button:first-child {
-  padding-right: 5%;
-}
-.button:last-child {
-  padding-left: 5%;
-}
-.img {
-  width: 20px;
-}
-.pageIncrementBtn {
-  margin-left: 4.5%;
-  cursor: pointer;
-}
-.pageDecrementBtn {
-  margin-right: 4.5%;
-  cursor: pointer;
-}
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.18s var(--ease);
 
-@media screen and (max-width: 1050px) {
-  article {
-    padding: 1rem 3rem;
+  &:hover {
+    color: var(--text);
+    background: var(--surface-2);
+    border-color: var(--border-strong);
   }
 }
+.active {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  background: var(--brand-gradient);
+  border: 1px solid transparent;
+  text-decoration: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: var(--shadow-glow);
+}
+.button {
+  @include icon-button(36px);
+}
+.buttonDisabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+.img {
+  width: 16px;
+  height: 16px;
+}
+.pageIncrementBtn,
+.pageDecrementBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  height: 36px;
+  padding: 0 4px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+
+  &:hover {
+    color: var(--text);
+  }
+}
+
 @media screen and (max-width: 355px) {
   .pagination {
     width: 100%;
+  }
+  .item,
+  .active,
+  .button {
+    width: 32px;
+    height: 32px;
   }
 }
