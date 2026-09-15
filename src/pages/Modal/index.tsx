@@ -8,7 +8,7 @@ export const Modal: React.FC<IModal> = ({ setModalWindow, modalWindow, data }) =
   const [cryptocurrencyItem, setCryptocurrencyItem] = useState("");
   const { setUserCryptocurrency, userCryptocurrency } = useDataContext();
   const { setNumberOfRendering, setIsDeleteOrPlus } = useTotalCostContext();
-  
+
   const handleOnSubmit = (e: any) => {
     e.preventDefault();
     if (!cryptocurrencyItem) {
@@ -35,25 +35,42 @@ export const Modal: React.FC<IModal> = ({ setModalWindow, modalWindow, data }) =
     setModalWindow(false);
   };
 
+  const estimate = Number(cryptocurrencyItem) * Number(data.priceUsd);
+
   return (
     <div className={modalWindow ? styles.visible : styles.hidden}>
       <div className={styles.modalBlock}>
-        <h2 className={styles.title}>Add cryptocurrency to portfolio - {data.name}</h2>
-        <p>Cryptocurrency cost = {"$" + Number(data.priceUsd).toFixed(2)} for 1</p>
-        <form onSubmit={handleOnSubmit}>
-          <input
-            className={styles.input}
-            value={cryptocurrencyItem}
-            onChange={(e) => setCryptocurrencyItem(e.target.value)}
-            type="number"
-            max={100}
-            placeholder="0.00"
-            min={0.01}
-            step={0.01}
-          />
-          <button className={styles.submit} type="submit">Submit</button>
+        <button className={styles.closeBtn} onClick={() => setModalWindow(false)} aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </button>
+
+        <p className={styles.eyebrow}>Add to portfolio</p>
+        <h2 className={styles.title}>{data.name}</h2>
+        <p className={styles.price}>${Number(data.priceUsd).toFixed(2)} <span>per coin</span></p>
+
+        <form onSubmit={handleOnSubmit} className={styles.form}>
+          <label className={styles.label} htmlFor="cryptoAmount">Amount</label>
+          <div className={styles.inputRow}>
+            <input
+              id="cryptoAmount"
+              className={styles.input}
+              value={cryptocurrencyItem}
+              onChange={(e) => setCryptocurrencyItem(e.target.value)}
+              type="number"
+              max={100}
+              placeholder="0.00"
+              min={0.01}
+              step={0.01}
+            />
+            <button className={styles.submit} type="submit">Add</button>
+          </div>
+          <p className={styles.hint}>Min 0.01 · Max 100</p>
+          {cryptocurrencyItem !== "" && !Number.isNaN(estimate) && (
+            <p className={styles.estimate}>≈ <span>${estimate.toFixed(2)}</span> total</p>
+          )}
         </form>
-        <button className={styles.closeBtn} onClick={() => setModalWindow(false)}>Close</button>
       </div>
     </div>
   );

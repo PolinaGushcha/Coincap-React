@@ -14,6 +14,10 @@ const Main: React.FC = () => {
     <Suspense fallback={<Loading />}>
       <Await resolve={data}>
         <div className={styles.main}>
+          <div className={styles.heading}>
+            <h1 className={styles.title}>Markets</h1>
+            <p className={styles.subtitle}>Live prices, ranked by market cap</p>
+          </div>
           <ListRender pageNum={Number(searchParams.get('page'))} />
         </div>
       </Await>
