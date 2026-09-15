@@ -1,10 +1,6 @@
-body {
-  background: linear-gradient(45deg, #f5f7fa, #c3cfe2);
-  height: 100vh;
-  overflow: hidden;
-  margin: 0;
-}
 .routerContainer {
+  width: min(1240px, 94%);
   margin: 0 auto;
-  width: 90%;
+  padding-bottom: 64px;
+  min-height: 100vh;
 }
