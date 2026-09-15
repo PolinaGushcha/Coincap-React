@@ -1,36 +1,123 @@
-.button {
-    background-color: #4e598c;
-    border: none;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    position: absolute;
-    top: 5%;
-    right: 0;
-}
+@import "../../styles/mixins";
+
 .container {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 .elementInfoBlock {
-    position: relative;
+  @include glass-panel;
+  position: relative;
+  width: 100%;
+  padding: 28px;
+  animation: fadeInUp 0.35s var(--ease);
 }
-.addToProfile {
-    background-color: #4e598c;
-  border-radius: 20px;
-  border: none;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: end;
-  justify-content: flex-start;
-  cursor: pointer;
-  color: white;
-  margin-left: 20px;
+
+.button {
+  @include ghost-button;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 22px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
 }
+
 .title {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+
+  h3 {
+    font-size: 22px;
+    color: var(--text);
+  }
+}
+.avatar {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--brand-gradient-soft);
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+}
+.symbol {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.addToProfile {
+  @include gradient-button;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 13px;
+  margin-left: auto;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 18px 0 26px;
+}
+.price {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.pillUp,
+.pillDown {
+  @include change-pill;
+  font-size: 14px;
+  padding: 6px 12px;
+}
+.pillUp {
+  color: var(--up);
+  background: var(--up-bg);
+}
+.pillDown {
+  color: var(--down);
+  background: var(--down-bg);
+}
+.pillLabel {
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-left: 2px;
+}
+
+@media screen and (max-width: 560px) {
+  .addToProfile {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+  .price {
+    font-size: 32px;
+  }
 }
